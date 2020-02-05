@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "827066659332",
+    "firebase_url": "https://barcode-50812.firebaseio.com",
+    "project_id": "barcode-50812",
+    "storage_bucket": "barcode-50812.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:827066659332:android:c8ac72bd382c503997bb51",
+        "android_client_info": {
+          "package_name": "com.trio.barcode"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "827066659332-pid14guvpcv0975kqqfdo68ujlagk3ag.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB35IQ2KHc5-QLy__PBxbCpcZXbGBWeKqo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "827066659332-pid14guvpcv0975kqqfdo68ujlagk3ag.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
