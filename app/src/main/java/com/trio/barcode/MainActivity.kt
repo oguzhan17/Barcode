@@ -15,6 +15,7 @@ import com.google.android.gms.vision.CameraSource
 import com.google.android.gms.vision.Detector
 import com.google.android.gms.vision.barcode.Barcode
 import com.google.android.gms.vision.barcode.BarcodeDetector
+import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.activity_main.*
 import java.lang.Exception
 import java.util.jar.Manifest
@@ -24,10 +25,13 @@ class MainActivity : AppCompatActivity() {
     private val requestCodeCameraPermission = 1001
     private lateinit var cameraSource: CameraSource
     private lateinit var detector: BarcodeDetector
+    private lateinit var db: FirebaseFirestore
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        db = FirebaseFirestore.getInstance()
+
         if (ContextCompat.checkSelfPermission(
                 this@MainActivity,
                 android.Manifest.permission.CAMERA
