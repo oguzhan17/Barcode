@@ -4,6 +4,7 @@ import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.WorkSource
+import android.util.Log
 import android.util.SparseArray
 import android.view.Surface
 import android.view.SurfaceHolder
@@ -25,7 +26,8 @@ class MainActivity : AppCompatActivity() {
     private val requestCodeCameraPermission = 1001
     private lateinit var cameraSource: CameraSource
     private lateinit var detector: BarcodeDetector
-    private lateinit var db : FirebaseFirestore
+    private lateinit var db: FirebaseFirestore
+    val TAG = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -106,18 +108,21 @@ class MainActivity : AppCompatActivity() {
                 val qrCodes: SparseArray<Barcode> = detections.detectedItems
                 val code = qrCodes.valueAt(0)
                 textScanResult.text = code.displayValue
+                //    val document = textScanResult.text.toString()
 
+                val barcodeNo = hashMapOf<String, Any>()
+                barcodeNo.put("barcodNo", textScanResult.text.toString())
 
-                val postMap = hashMapOf<String,Any>()
-                postMap.put("BarcodeNo",code.displayValue.toString())
-
-                db.collection("BarcodeId").add(postMap).addOnCompleteListener { task ->
-                    if(task.isComplete && task.isSuccessful){
+                db.collection("BarcodeId").add(barcodeNo).addOnCompleteListener { task ->
+                    if(task.isSuccessful && task.isComplete){
                         finish()
+                    }
                 }
-            }.addOnFailureListener { exception ->
-                    Toast.makeText(applicationContext,exception.localizedMessage.toString(),Toast.LENGTH_LONG).show()
-                }
+
+
+            }else{
+                textScanResult.text = ""
+            }
         }
     }
-}}
+}
