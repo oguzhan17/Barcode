@@ -1,5 +1,6 @@
 package com.trio.barcode
 
+import android.content.Intent
 import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -8,6 +9,7 @@ import android.util.Log
 import android.util.SparseArray
 import android.view.Surface
 import android.view.SurfaceHolder
+import android.view.View
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -45,6 +47,11 @@ class MainActivity : AppCompatActivity() {
             setupControls()
         }
 
+    }
+
+    fun navPage(view: View){
+       val intent = Intent(applicationContext,ProductActivity::class.java)
+        startActivity(intent)
     }
 
     private fun setupControls() {
@@ -114,8 +121,12 @@ class MainActivity : AppCompatActivity() {
                 barcodeNo.put("barcodNo", textScanResult.text.toString())
 
                 db.collection("BarcodeId").add(barcodeNo).addOnCompleteListener { task ->
+                   // if(textScanResult.text != null){
                     if(task.isSuccessful && task.isComplete){
+                        val intent = Intent(applicationContext,ProductActivity::class.java)
+                        startActivity(intent)
                         finish()
+
                     }
                 }
 
