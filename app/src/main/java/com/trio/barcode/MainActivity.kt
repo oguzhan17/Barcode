@@ -106,34 +106,34 @@ class MainActivity : AppCompatActivity() {
     }
     private val processor = object : Detector.Processor<Barcode>{
         override fun release() {
-
         }
 
+        var i = 0
         override fun receiveDetections(detections: Detector.Detections<Barcode>?) {
 
             if(detections !=null && detections.detectedItems.isNotEmpty()){
-                val qrCodes: SparseArray<Barcode> = detections.detectedItems
-                val code = qrCodes.valueAt(0)
-                textScanResult.text = code.displayValue
-                //    val document = textScanResult.text.toString()
+                i++
+                if(i==1){
+                    val qrCodes: SparseArray<Barcode> = detections.detectedItems
 
-                val barcodeNo = hashMapOf<String, Any>()
-                barcodeNo.put("barcodNo", textScanResult.text.toString())
-
-                db.collection("BarcodeId").add(barcodeNo).addOnCompleteListener { task ->
-                   // if(textScanResult.text != null){
-                    if(task.isSuccessful && task.isComplete){
-                        val intent = Intent(applicationContext,ProductActivity::class.java)
-                        startActivity(intent)
-                        finish()
-
-                    }
-                }
+    val code = qrCodes.valueAt(0)
+    textScanResult.text = code.displayValue
 
 
-            }else{
-                textScanResult.text = ""
-            }
-        }
+
+    val barcodeNo = hashMapOf<String, Any>()
+    barcodeNo.put("barcodeNo", textScanResult.text.toString())
+
+
+    db.collection("BarcodeId").add(barcodeNo).addOnCompleteListener { task ->
+        val intent = Intent(applicationContext,ProductActivity::class.java)
+            startActivity(intent)
+
+            //  finish()
+
+
     }
 }
+            }
+        }
+    }}
