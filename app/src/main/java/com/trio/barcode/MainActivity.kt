@@ -29,12 +29,13 @@ class MainActivity : AppCompatActivity() {
     private lateinit var cameraSource: CameraSource
     private lateinit var detector: BarcodeDetector
     private lateinit var db: FirebaseFirestore
-    val TAG = ""
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         db = FirebaseFirestore.getInstance()
+
 
         if (ContextCompat.checkSelfPermission(
                 this@MainActivity,
@@ -49,9 +50,10 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    fun navPage(view: View){
+    private fun navPage(){
        val intent = Intent(applicationContext,ProductActivity::class.java)
         startActivity(intent)
+
     }
 
     private fun setupControls() {
@@ -104,36 +106,32 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
-    private val processor = object : Detector.Processor<Barcode>{
+    private val processor = object : Detector.Processor<Barcode> {
         override fun release() {
         }
 
         var i = 0
         override fun receiveDetections(detections: Detector.Detections<Barcode>?) {
 
-            if(detections !=null && detections.detectedItems.isNotEmpty()){
+            if (detections != null && detections.detectedItems.isNotEmpty()) {
                 i++
-                if(i==1){
+                if (i == 1) {
                     val qrCodes: SparseArray<Barcode> = detections.detectedItems
 
-    val code = qrCodes.valueAt(0)
-    textScanResult.text = code.displayValue
+                    val code = qrCodes.valueAt(0)
+                    textScanResult.text = code.displayValue
 
 
-
-    val barcodeNo = hashMapOf<String, Any>()
-    barcodeNo.put("barcodeNo", textScanResult.text.toString())
-
-
-    db.collection("BarcodeId").add(barcodeNo).addOnCompleteListener { task ->
-        val intent = Intent(applicationContext,ProductActivity::class.java)
-            startActivity(intent)
-
-            //  finish()
-
-
-    }
-}
+                    val barcodeNo = hashMapOf<String, Any>()
+                    barcodeNo.put("barcodeNo", textScanResult.text.toString())
+                    db.collection("BarcodeId").add(barcodeNo).addOnCompleteListener { task ->
+                        if (task.isComplete && task.isSuccessful) {
+                            navPage()
+                            finish()
+                        }
+                    }
+                }
             }
         }
     }}
+
