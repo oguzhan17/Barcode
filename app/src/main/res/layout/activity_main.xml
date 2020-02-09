@@ -12,7 +12,8 @@
         android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@+id/viewDivider"
         app:layout_constraintTop_toTopOf="parent"
-        />
+        app:layout_constraintVertical_bias="0.0"
+        tools:layout_editor_absoluteX="0dp" />
 
     <View
         android:id="@+id/viewDivider"
