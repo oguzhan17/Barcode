@@ -80,25 +80,4 @@ fun getDataFromFirestore() {
 }
 
 
-/*
-db.collection("BarcodeId").addSnapshotListener { snapshot, exception ->
-            if (exception != null){
-                Toast.makeText(applicationContext,exception.localizedMessage.toString(),Toast.LENGTH_LONG).show()
-            }else{
-            if(snapshot != null){
-                if(!snapshot.isEmpty){
 
-                    val documents = snapshot.documents
-                    for (document in documents){
-                        document.get("barcodeNo")
-
-                       val barcodeNo = document.get("barcodeNo") as? String
-
-                        println(barcodeNo)
-                    //   textView.text = barcodeNo.toString()
-    }
-
-                }
-            }}
-        }
-*/
